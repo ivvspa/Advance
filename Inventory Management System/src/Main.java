@@ -77,8 +77,13 @@ public class Main {
                     double prices = Double.parseDouble(price.getText());
                     int quantities = Integer.parseInt(quantity.getText());
                     Product p1 = new Product(name.getText(), prices, quantities);
-                    i1.addProduct(p1, display);
-                    display.setText("Product Added");
+                    if (prices>=0 || quantities>=0) {
+                        i1.addProduct(p1, display);
+                        display.setText("Product Added");
+                    }
+                    else{
+                        display.setText("Prices and quantity cannot be negative");
+                    }
 
             }
         });
