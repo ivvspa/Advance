@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 public class Main {
     public static void main(String[] args) {
 
+        //frame
         JFrame frame = new JFrame("Inventory Manager");
         frame.setSize(750, 820);
         frame.setLayout(new GridLayout(3, 1));
