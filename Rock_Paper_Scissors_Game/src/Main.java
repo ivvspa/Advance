@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
+
         //frame
         JFrame frame = new JFrame("Rock, Paper, Scissors!");
         frame.setSize(740, 550);
