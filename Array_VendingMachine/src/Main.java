@@ -29,11 +29,12 @@ public class Main {
                 if (moneyGiven >= price[choice]) {
 
                     System.out.println("Dispensing...");
+                    System.out.println("Change: " + (moneyGiven - price[choice]));
 
                 } else {
                     double sum = moneyGiven;
                     while (price[choice] >= sum) {
-                        System.out.println("Not enough money inserted. Remaining: " + (price[choice] - sum + "\nPress 0 to quit"));
+                        System.out.println("Not enough money inserted. Remaining: " + (price[choice] - sum) + "\nPress 0 to quit");
                         double newMoney = scan.nextDouble();
                         sum = sum + newMoney;
                         if (newMoney == 0) {
@@ -41,6 +42,7 @@ public class Main {
                         }
                     }
                     System.out.println("Dispensing...");
+                    System.out.println("Change: " + (sum - price[choice]));
                 }
             } else {
                 System.out.println("No more product in stock");
