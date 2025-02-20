@@ -35,7 +35,7 @@ public class Main {
                     double sum = moneyGiven;
                     while (price[choice] >= sum) {
                         double remaining = price[choice] - sum;
-                        System.out.printf("Not enough money inserted. Remaining: %.2f", remaining);
+                        System.out.printf("Not enough money inserted. Remaining: %.2f" , remaining);
                         double newMoney = scan.nextDouble();
                         sum = sum + newMoney;
                         if (newMoney == 0) {
