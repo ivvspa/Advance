@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        String[] title = {"Percy Jackson", "Tinker Bell", "Circe", "Ariadne", "Winnie the Pooh"};
+        String[] title = {"Alya", "Radi", "RAAAAWWWWRRR", "GRRRRRR", "MEOW MEOW MEOW"};
         double[] price = {15.99, 29.99, 34.99, 37.99, 15.49};
         int[] quantity = {7, 1, 2, 5, 12};
 
