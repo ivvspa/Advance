@@ -1,4 +1,6 @@
+import java.util.Queue;
 import java.util.Scanner;
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
@@ -49,9 +51,7 @@ public class Main {
             } else {
                 System.out.println("No more product in stock");
             }
-        }
     }
-
 
     static void display (String[] name, double[] price, int[] quantity) {
 
