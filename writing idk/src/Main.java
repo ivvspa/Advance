@@ -8,7 +8,8 @@ public class Main {
         while (i>0) {
             String messa = scanner.nextLine();
 
-                fileWriter("\n" + messa, "AAAAAAAaa");
+
+            fileWriter("\n" + messa, "Algebraic Questions");
 
             i++;
         }

@@ -1,0 +1,21 @@
+16 + 55 = 134   Inorrect.98 + 63 = 34294   Inorrect.6 + 57 = 342   Inorrect.80 + 37 = 117   Correct!73 + 93 = 166   Correct!91 + 6 = 97   Correct!60 + 0 = 60   Correct!
+40 + 88 = 128   Correct!
+41 + 44 = 85   Correct!
+28 + 40 = 314   Inorrect.
+34 + 56 = 90   Correct!
+35 + 0 = 35   Correct!
+15 + 58 = 31   Inorrect.
+22 + 31 = 53   Correct!
+56 + 72 = 128   Correct!
+60 + 75 = 431413   Inorrect.
+72 + 78 = ifda   Inorrect.
+56 + 57 = i2   Inorrect.
+25 + 17 = 42   Correct!
+43 + 81 = 124   Correct!
+62 + 53 = 115   Correct!
+68 + 45 = 4391   Inorrect.
+12 + 61 = 73   Correct!
+28 + 19 = 47   Correct!
+8 + 20 = 28   Correct!
+53 + 4 = 57   Correct!
+10 + 9 = 310   Incorrect.

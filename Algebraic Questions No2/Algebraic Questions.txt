@@ -1,0 +1,5 @@
+12 + 80 = 92   Correct!
+74 + 17 = 81   Incorrect.
+65 + 31 = 96   Correct!
+60 + 73 = 53535   Incorrect.
+7 + 96 = 13   Incorrect.
