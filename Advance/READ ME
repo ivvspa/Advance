@@ -1,0 +1,6 @@
+READ ME
+
+This is a very bare-bones project for a rogue-liek game. There is implemantation of saving/loading data, managing an inventory, and fighting enemies. 
+I have to say that it is a bit wonky sometimes, but it mostly works, for the exception of healing.
+The game is very hard because it is based on only luck for now.
+Hope you enjoy it!
