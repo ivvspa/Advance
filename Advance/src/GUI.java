@@ -20,6 +20,7 @@ public class GUI extends JFrame {
     private Player p1 = new Player (14, 1);
 
 
+
     public GUI() {  //here is mostly set-ups and creating objects which I can use
         setTitle("Advance");
         setSize(1000, 600);
@@ -145,10 +146,16 @@ public class GUI extends JFrame {
 
                     int column = table1.getSelectedColumn();
                     int row = table1.getSelectedRow();
-                    String gimmickName = (String) table1.getValueAt(row,column);
 
-                    Items i = Main.searchGimmickName(inv, gimmickName);
-                    if(!i.getName().isEmpty()) {
+                    if(column!=-1 || row != -1) { //checks if something is selected
+                        String gimmickName = (String) table1.getValueAt(row,column);
+                        Items i = Main.searchGimmickName(inv, gimmickName);
+                    if (i.getName().equals("Healing Potion") || i.getName().equals("Power-up Potion")) {
+                        inv.getInv().remove(i);
+                        Object[][] updatedData = new Object[6][2];
+                        inv.displayItems(inv.getInv(), table1, updatedData);
+                    }
+
                         i.action(p1, ((Enemy) randomEvent), gimmickName, textArea);
                         if (((Enemy) randomEvent).getHealth() > 0) {
                             ((Enemy) randomEvent).randomAttack(p1, textArea);
@@ -157,7 +164,7 @@ public class GUI extends JFrame {
                         }
                     }
                     else {
-                        textArea.append("Select the item you want to use.");
+                        textArea.append("\nSelect the item that you want to use.");
                     }
                 }
 
@@ -169,10 +176,17 @@ public class GUI extends JFrame {
 
                 int column = table1.getSelectedColumn();
                 int row = table1.getSelectedRow();
-                String deleteT = (String) table1.getValueAt(row,column);
-                Items i = Main.searchGimmickName(inv, deleteT);
-                inv.removeItem(i, textArea, table1);
-                inv.displayItems(inv.getInv(), table1, data);
+                if(column!=-1 || row != -1) {
+                    String deleteT = (String) table1.getValueAt(row, column);
+                    Items i = Main.searchGimmickName(inv, deleteT);
+                    inv.removeItem(i, textArea, table1);
+
+                    Object[][] updatedData = new Object[6][2];
+                    inv.displayItems(inv.getInv(), table1, updatedData);
+                }
+                else {
+                    textArea.append("\nSelect the item that you want to delete.");
+                }
 
             }
         });
@@ -182,9 +196,13 @@ public class GUI extends JFrame {
 
                 int column = table1.getSelectedColumn();
                 int row = table1.getSelectedRow();
-                String deleteT = (String) table1.getValueAt(row,column);
-                Items i = Main.searchGimmickName(inv, deleteT);
-                inv.readItem(i, textArea);
+                if(column!=-1 || row != row) {
+                    String deleteT = (String) table1.getValueAt(row, column);
+                    Items i = Main.searchGimmickName(inv, deleteT);
+                    inv.readItem(i, textArea);
+                } else {
+                    textArea.append("\nSelect the item that you want to read.");
+                }
 
             }
         });
@@ -194,10 +212,15 @@ public class GUI extends JFrame {
 
                 int column = table1.getSelectedColumn();
                 int row = table1.getSelectedRow();
+                if(column!=-1 || row != row) {
                 String deleteT = (String) table1.getValueAt(row,column);
                 Items i = Main.searchGimmickName(inv, deleteT);
                 inv.updateItem(treasureItem, inv, i);
-                inv.displayItems(inv.getInv(), table1, data);
+                Object[][] updatedData = new Object[6][2];
+                inv.displayItems(inv.getInv(), table1, updatedData);
+                } else {
+                    textArea.append("\nSelect the item that you want to set.");
+                }
 
             }
         });

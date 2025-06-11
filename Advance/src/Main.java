@@ -60,12 +60,13 @@ public class Main {
             e.printStackTrace();
         }
     }
-    public static Items searchGimmickName(Inventory inv, String gimmickName){
-        for (Items i : inv.getInv()){
-            if (gimmickName.equals(i.getGimmick())) {
-                return i;
+    public static Items searchGimmickName(Inventory inv, String name){
+        for (Items it : inv.getInv()){
+            if (name.equals(it.getName())) {
+                return it;
             }
         }
+        System.out.println("dont got it");
         return inv.getInv().get(inv.getInv().size()-1);
     }
 
@@ -252,6 +253,7 @@ class Items{
 
         if (this.name.equals("Healing Potion")){
             p.healDamage(effect, textArea);
+
         }
         else if(this.name.equals("Bronze Spear") || this.name.equals("Silver Spear") || this.name.equals("Golden Spear") || this.name.equals("Legendary Spear") ){
              textArea.append("\nYou hurled the " + this.name);
@@ -260,7 +262,7 @@ class Items{
         }
         else if (gimmickSelection.equals("Power-up Potion")){
             this.effect += p.getLevel();
-            textArea.append("\nYour " + this.name + " feels stronger.");
+            textArea.append("\nYour body feels stronger.");
         }
     }
 
