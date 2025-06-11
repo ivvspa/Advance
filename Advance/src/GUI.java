@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.Math;
 import java.util.ArrayList;
 
 public class GUI extends JFrame {
@@ -10,22 +9,24 @@ public class GUI extends JFrame {
     private JButton advance;
     private JButton set;
     private JTextArea textArea;
-    private JComboBox<Items> selection = new JComboBox<Items>();
     private JButton use;
     private JButton delete;
     private JButton read;
     private JTable table1;
     private JButton load;
     private JLabel stats;
+    private JButton restart;
     private Events randomEvent;
     private Player p1 = new Player (14, 1);
 
 
     public GUI() {  //here is mostly set-ups and creating objects which I can use
         setTitle("Advance");
-        setSize(900, 600);
+        setSize(1000, 600);
         setContentPane(panel1);
         setVisible(true);
+
+        textArea.setText("Press Advance to start!");
 
         Enemy gwishin = new Enemy(0.25, 2,5, "Gwishin", "Revenge", "Petrified", 8);
         Enemy gumiho = new Enemy(0.15, 5, 10, "Gumiho", "Liver Extractor", "Charming Smile", 6);
@@ -36,7 +37,7 @@ public class GUI extends JFrame {
         Enemy[] collective = {gwishin, gumiho, daltokki, yong, saja};
 
         Items healingPotion = new Items ("Healing Potion", "heal", 10, "A simple potion that restores your health. \nStocking up on them seems like a good idea.");
-        Items powerUp = new Items ("Power-up potion", "add", 10, "A big glass of blue, sparkly lemonade. \nLooks like it might give you some strength.");
+        Items powerUp = new Items ("Power-up Potion", "add", 10, "A big glass of blue, sparkly lemonade. \nLooks like it might give you some strength.");
         Items bronzeSpear = new Items ("Bronze Spear", "damage", 5, "Big pointy stick with a fork on top. \nNot very useful, but sufficient for your survival.");
         Items silverSpear = new Items ("Silver Spear", "damage", 8, "A well-crafted weapon. \nIts speed is formidable in comparison to its damage.");
         Items goldenSpear = new Items ("Golden Spear", "damage", 14, "A weapon crafted by a professional. \nIts speed is unremarkable, but its damage is really good.");
@@ -54,10 +55,8 @@ public class GUI extends JFrame {
         Fountain fountain = new Fountain(0.09);
 
 
-
         Inventory inv = new Inventory (new ArrayList<Items>());
         inv.getInv().add(bronzeSpear);
-        selection.addItem(bronzeSpear);
 
         Object[][] data = new Object[6][2];
 
@@ -119,8 +118,7 @@ public class GUI extends JFrame {
                         textArea.append(((Treasure) randomEvent).getItem().getName() + "\n");
                         if (inv.size() < 7) {
 
-                            inv.addItem(((Treasure) randomEvent).getItem(), selection, textArea);
-                            selection.addItem(((Treasure) randomEvent).getItem());
+                            inv.addItem(((Treasure) randomEvent).getItem(), textArea);
                             inv.displayItems(inv.getInv(), table1, data);
 
 
@@ -144,14 +142,22 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if (randomEvent instanceof Enemy) {
-                    Items i = (Items) selection.getSelectedItem();
-                    i.action(p1, ((Enemy)randomEvent), selection, textArea);
-                    if (((Enemy) randomEvent).getHealth() > 0) {
-                        ((Enemy) randomEvent).randomAttack(p1, textArea);
+
+                    int column = table1.getSelectedColumn();
+                    int row = table1.getSelectedRow();
+                    String gimmickName = (String) table1.getValueAt(row,column);
+
+                    Items i = Main.searchGimmickName(inv, gimmickName);
+                    if(!i.getName().isEmpty()) {
+                        i.action(p1, ((Enemy) randomEvent), gimmickName, textArea);
+                        if (((Enemy) randomEvent).getHealth() > 0) {
+                            ((Enemy) randomEvent).randomAttack(p1, textArea);
+                        } else {
+                            advance.setEnabled(true);
+                        }
                     }
-                    else{
-                        advance.setEnabled(true);
-                        textArea.append("\n" + ((Enemy)randomEvent).getName() + " has fallen!");
+                    else {
+                        textArea.append("Select the item you want to use.");
                     }
                 }
 
@@ -160,8 +166,12 @@ public class GUI extends JFrame {
 
         delete.addActionListener(new ActionListener() { //delete function
             public void actionPerformed(ActionEvent e) {
-                Items selected = (Items) selection.getSelectedItem();
-                inv.removeItem(selected, textArea, selection);
+
+                int column = table1.getSelectedColumn();
+                int row = table1.getSelectedRow();
+                String deleteT = (String) table1.getValueAt(row,column);
+                Items i = Main.searchGimmickName(inv, deleteT);
+                inv.removeItem(i, textArea, table1);
                 inv.displayItems(inv.getInv(), table1, data);
 
             }
@@ -170,7 +180,11 @@ public class GUI extends JFrame {
         read.addActionListener(new ActionListener() {  //reading function
             public void actionPerformed(ActionEvent e) {
 
-                inv.readItem(selection, textArea);
+                int column = table1.getSelectedColumn();
+                int row = table1.getSelectedRow();
+                String deleteT = (String) table1.getValueAt(row,column);
+                Items i = Main.searchGimmickName(inv, deleteT);
+                inv.readItem(i, textArea);
 
             }
         });
@@ -178,7 +192,11 @@ public class GUI extends JFrame {
         set.addActionListener(new ActionListener() {  //setting function
             public void actionPerformed(ActionEvent e) {
 
-                inv.updateItem(treasureItem, inv, selection);
+                int column = table1.getSelectedColumn();
+                int row = table1.getSelectedRow();
+                String deleteT = (String) table1.getValueAt(row,column);
+                Items i = Main.searchGimmickName(inv, deleteT);
+                inv.updateItem(treasureItem, inv, i);
                 inv.displayItems(inv.getInv(), table1, data);
 
             }
@@ -198,7 +216,17 @@ public class GUI extends JFrame {
 
                 p1 = Main.load("save.txt");
                 textArea.setText("Loaded save");
+                inv.displayItems(inv.getInv(), table1, data);
                 advance.setEnabled(true);
+
+            }
+        });
+
+        restart.addActionListener(new ActionListener() {  //loading function
+            public void actionPerformed(ActionEvent e) {
+
+                dispose();
+                new GUI();
 
             }
         });

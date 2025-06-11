@@ -60,6 +60,14 @@ public class Main {
             e.printStackTrace();
         }
     }
+    public static Items searchGimmickName(Inventory inv, String gimmickName){
+        for (Items i : inv.getInv()){
+            if (gimmickName.equals(i.getGimmick())) {
+                return i;
+            }
+        }
+        return inv.getInv().get(inv.getInv().size()-1);
+    }
 
 }
 
@@ -139,7 +147,7 @@ class Enemy extends Events{
         health = health - damage;
         textArea.append("\n" + name + " has taken " + damage + " damage.");
         if (health <= 0) {
-            textArea.append("\n" + name + " has died!");
+            textArea.append("\n" + name + " has fallen!");
         }
     }
 
@@ -240,23 +248,26 @@ class Items{
 
 
 
-    public void action (Player p, Enemy e, JComboBox<Items> aaa, JTextArea textArea){ //main idea that does not really end up working
-        Items selected = (Items) aaa.getSelectedItem();
-        if (this.gimmick.equals("heal")){
+    public void action (Player p, Enemy e, String gimmickSelection, JTextArea textArea){ //main idea that does not really end up working
+
+        if (this.name.equals("Healing Potion")){
             p.healDamage(effect, textArea);
         }
-        else if(this.gimmick.equals("damage")){
-            e.takeDamage(effect, textArea);
+        else if(this.name.equals("Bronze Spear") || this.name.equals("Silver Spear") || this.name.equals("Golden Spear") || this.name.equals("Legendary Spear") ){
+             textArea.append("\nYou hurled the " + this.name);
+             e.takeDamage(effect, textArea);
+
         }
-        else if (this.gimmick.equals("add")){
+        else if (gimmickSelection.equals("Power-up Potion")){
             this.effect += p.getLevel();
             textArea.append("\nYour " + this.name + " feels stronger.");
         }
     }
 
+
 }
 
-class Inventory {  //all of the sorting/managing happens here
+class Inventory {  //all the sorting/managing happens here
     private ArrayList<Items> inv;
 
     public Inventory(ArrayList<Items> inv) {
@@ -271,45 +282,40 @@ class Inventory {  //all of the sorting/managing happens here
         return inv.size();
     }
 
-    public void addItem(Items item, JComboBox<Items> aaa,JTextArea textArea) {
+    public void addItem(Items item, JTextArea textArea) {
         if (inv.size() <= 6){
             inv.add(item);
-            aaa.addItem(item);
-
         }
         else {
             textArea.append("\nInventory is full! Try replacing the new found equipment with something old.");
         }
     }
 
-    public void removeItem(Items item, JTextArea textArea, JComboBox<Items> inventory) {
+    public void removeItem(Items item, JTextArea textArea, JTable table) {
         inv.remove(item);
-        inventory.removeItem(item);
         textArea.append("\nItem removed!");
     }
 
-    public void updateItem(Items item, Inventory iv, JComboBox<Items> inventory) {
-        Items selected = (Items) inventory.getSelectedItem();
+    public void updateItem(Items item, Inventory iv, Items selected) {
         for (int i = 0; i < iv.getInv().size(); i++) {
             if (iv.getInv().get(i) == selected)
                 inv.set(i, item);
-            DefaultComboBoxModel<Items> model = (DefaultComboBoxModel<Items>) inventory.getModel();
-            model.removeElementAt(i);
-            model.insertElementAt(item, i);
+
         }
 
     }
 
-    public void readItem(JComboBox<Items> inventory, JTextArea textArea) {
+    public void readItem(Items i, JTextArea textArea) {
         //search method for the item that is in the box
-        Items selected = (Items) inventory.getSelectedItem();
-        if (selected != null) {
-            textArea.append("\n" + selected.getDescription());
+
+        if (i != null) {
+            textArea.append("\n" + i.getDescription());
         } else {
             textArea.append("\nYou don't have that many items... You want me to read nothing?");
         }
         }
-    void displayItems (ArrayList<Items> inventory, JTable table, Object[][] data) {  //displays all items in a table
+
+    public void displayItems (ArrayList<Items> inventory, JTable table, Object[][] data) {  //displays all items in a table
 
         String[] columnNames = {"#Number", "Item Name"};
 
@@ -354,7 +360,7 @@ class Player {  //the user/the player with their attributes
     }
 
 
-    public void takeDamage(int damage, JTextArea textArea) {
+    public void takeDamage(int damage, JTextArea textArea) { //how health is adjusted
         health = health - damage;
         textArea.append("\nYou have taken " + damage + " damage. \nRemaining: " + health);
         if (health <= 0) {
@@ -364,10 +370,17 @@ class Player {  //the user/the player with their attributes
         }
     }
     public void healDamage(int heal, JTextArea textArea) {
-        this.health += heal;
-        textArea.append("\nYou healed " + heal + " health!");
+        int maxHealth = level + 15;
 
-        if (health >= level+15) {
+        if(health+heal<=maxHealth) {
+            this.health += heal;
+            textArea.append("\nYou healed " + heal + " health!");
+        }
+        else if ((health+heal)>maxHealth){
+            this.health = maxHealth;
+            textArea.append("\nYou healed to max health!");
+        }
+        else{
             textArea.append("\nYou are at maximum health.");
         }
     }
