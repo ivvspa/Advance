@@ -1,6 +1,31 @@
 READ ME
 
-This is a very bare-bones project for a rogue-liek game. There is implemantation of saving/loading data, managing an inventory, and fighting enemies. 
-I have to say that it is a bit wonky sometimes, but it mostly works, for the exception of healing.
-The game is very hard because it is based on only luck for now.
+This is a very bare-bones project for a rogue-like game. There is implemantation of saving/loading data, managing an inventory, and fighting enemies. 
+I have to say that it is a bit wonky sometimes, but it mostly works as intended.
+The game is very difficult to progress through because it is based on only luck for now.
 Hope you enjoy it!
+
+LORE
+The world has turned upside down. Mythological creatures are crawling from the abyss, looking to reclaim their lost lands. Nothing looks normal anymore - the fields you knew 
+so well have turned into caricatures of classical Korean artistry. You do not know why, but you do know that you should never stop fighting for your survival. Survive 
+encounters with gwishins (venegeful ghosts), gumihos (nine-tailed foxes), Daltokki (moon rabbits), Yong (water dragons), and death itself, Jeosung Saja, because it is the only
+path you know, so your existence proves to be somehow meaningful.
+
+IMPLEMENTATION
+Events - the parent class of Enemy, Treasure, and Fountain
+Enemy - consists of Gwishin, Gumiho, Daltokki, Yong, and Jeosung Saja, each with two different attacks
+Treasure - gives the player an item
+Fountain - heals the player
+Items - most importantly, they have a name and an effectm determined by a gimmick. They consist of four weapons (spears), a consumabkle healing potion, and a consumbeable power-up potion.
+Inventory - holds an array of items
+
+CONTROLS
+Advance - progress through the levels
+Use - use a selected item from the table 
+Delete - delete an item your inventory
+Set - if there is not enough space and you have new items from Treasure, you can replace the new item with one of your own
+Read - shows the description of an item
+Save - saves your progress level and health into a file
+Load - loads your saved progress level and health and overwrites your current run
+Restart - start another run
+
