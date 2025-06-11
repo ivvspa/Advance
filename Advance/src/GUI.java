@@ -35,12 +35,12 @@ public class GUI extends JFrame {
 
         Enemy[] collective = {gwishin, gumiho, daltokki, yong, saja};
 
-        Items healingPotion = new Items ("Healing Potion", "heal", 10, "A simple potion that restores your health. Stacking up on them seems like a good idea.");
-        Items powerUp = new Items ("Power-up potion", "add", 10, "A big glass of blue, sparkly lemonade. Looks like it might give you some strength.");
-        Items bronzeSpear = new Items ("Bronze Spear", "damage", 5, "Big pointy stick with a fork on top. Not very useful, but sufficient for your survival.");
-        Items silverSpear = new Items ("Silver Spear", "damage", 8, "A well-crafted weapon. Its speed is formidable in comparison to its damage.");
-        Items goldenSpear = new Items ("Golden Spear", "damage", 14, "A weapon crafted by a professional. Its speed is unremarkable, but its damage is really good.");
-        Items legendarySpear = new Items ("Legendary Spear", "damage", 20, "The fabled weapon. Heavy as it is, it deals extraordinary damage.");
+        Items healingPotion = new Items ("Healing Potion", "heal", 10, "A simple potion that restores your health. \nStocking up on them seems like a good idea.");
+        Items powerUp = new Items ("Power-up potion", "add", 10, "A big glass of blue, sparkly lemonade. \nLooks like it might give you some strength.");
+        Items bronzeSpear = new Items ("Bronze Spear", "damage", 5, "Big pointy stick with a fork on top. \nNot very useful, but sufficient for your survival.");
+        Items silverSpear = new Items ("Silver Spear", "damage", 8, "A well-crafted weapon. \nIts speed is formidable in comparison to its damage.");
+        Items goldenSpear = new Items ("Golden Spear", "damage", 14, "A weapon crafted by a professional. \nIts speed is unremarkable, but its damage is really good.");
+        Items legendarySpear = new Items ("Legendary Spear", "damage", 20, "The fabled weapon. \nHeavy as it is, it deals extraordinary damage.");
 
         Treasure treasure1 = new Treasure(0.07, healingPotion);
         Treasure treasure2 = new Treasure(0.03, powerUp);
@@ -112,7 +112,7 @@ public class GUI extends JFrame {
                             advance.setEnabled(false);
                         }
                     } else if (randomEvent instanceof Fountain) {
-                        textArea.setText("A small stone fountain appears before your very next step. A small spring of refreshing water is all you needed.");
+                        textArea.setText("A small stone fountain appears before your very next step. \nA small spring of refreshing water is all you needed.");
                         ((Fountain) randomEvent).fountain(p1, textArea);
                     } else {
                         textArea.setText("A treasure chest full of gold stands before you. You find a: \n");
@@ -132,7 +132,7 @@ public class GUI extends JFrame {
                         }
                     }
                 }
-                else {
+                if (p1.getHealth()<0) {
                     advance.setEnabled(true);
                     p1.setLevel(1);
                 }
@@ -162,7 +162,6 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Items selected = (Items) selection.getSelectedItem();
                 inv.removeItem(selected, textArea, selection);
-                selection.removeItem(selected);
                 inv.displayItems(inv.getInv(), table1, data);
 
             }

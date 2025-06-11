@@ -243,16 +243,14 @@ class Items{
     public void action (Player p, Enemy e, JComboBox<Items> aaa, JTextArea textArea){ //main idea that does not really end up working
         Items selected = (Items) aaa.getSelectedItem();
         if (this.gimmick.equals("heal")){
-
             p.healDamage(effect, textArea);
-
         }
-        if(this.gimmick.equals("damage")){
+        else if(this.gimmick.equals("damage")){
             e.takeDamage(effect, textArea);
         }
-        if (this.gimmick.equals("add")){
-            selected.effect+=p.getLevel();
-            textArea.append("\nYour items feel stronger.");
+        else if (this.gimmick.equals("add")){
+            this.effect += p.getLevel();
+            textArea.append("\nYour " + this.name + " feels stronger.");
         }
     }
 
@@ -286,6 +284,7 @@ class Inventory {  //all of the sorting/managing happens here
 
     public void removeItem(Items item, JTextArea textArea, JComboBox<Items> inventory) {
         inv.remove(item);
+        inventory.removeItem(item);
         textArea.append("\nItem removed!");
     }
 
@@ -302,7 +301,7 @@ class Inventory {  //all of the sorting/managing happens here
     }
 
     public void readItem(JComboBox<Items> inventory, JTextArea textArea) {
-        //search method for the item that is in the box thingy
+        //search method for the item that is in the box
         Items selected = (Items) inventory.getSelectedItem();
         if (selected != null) {
             textArea.append("\n" + selected.getDescription());
@@ -359,7 +358,7 @@ class Player {  //the user/the player with their attributes
         health = health - damage;
         textArea.append("\nYou have taken " + damage + " damage. \nRemaining: " + health);
         if (health <= 0) {
-            textArea.append("\nThis is the end.");
+            textArea.append("\nThis is the end. Restart the program to play again.");
             textArea.append("\nFinal level: " + level);
 
         }
